@@ -11,8 +11,8 @@ int main() {
     primes.push_back(2);
     primes.push_back(3);
 
-    LenstraECM l(curve);
-    l.sieve(primes, 100);
-    std::cout << primes.at(100) << std::endl;
+    LenstraECM l(curve, 100, 100);
+    l.ppBound(primes);
+    std::cout << l.getPP(1) << std::endl;
     return 0;
 }
