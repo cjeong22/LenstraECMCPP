@@ -15,7 +15,7 @@ class LenstraECM {
         LenstraECM(ECMCurve C, long long primeCount, long long limit);
         void sieve(std::vector<long long> &primes);
         void ppBound(std::vector<long long> &primes);
-        unsigned long getPP(int idx);
-        std::tuple<long long, long long> factor(std::vector<long long> &primes);
+        std::tuple<long long, long long> factor();
+        void multiFactor();
 };
 #endif

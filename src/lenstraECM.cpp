@@ -1,6 +1,7 @@
 #include "../include/lenstraECM.hpp"
 #include "../include/inverseException.hpp"
 #include "../include/ecmCurve.hpp"
+#include <unistd.h>
 #include <vector>
 #include <iostream>
 #include <random>
@@ -32,6 +33,7 @@ void LenstraECM::sieve(std::vector<long long> &primes) {
 }
 void LenstraECM::ppBound(std::vector<long long> &primes) {
     if (boundedPrimes.size() == 0) {
+        std::cout << "generating" << std::endl;
         sieve(primes);
         for (long long i = 0; i <= primeCount; i++) {
             long long p = primes.at(i);
@@ -51,11 +53,7 @@ void LenstraECM::ppBound(std::vector<long long> &primes) {
     }
 }
 
-unsigned long LenstraECM::getPP(int idx) {
-    return boundedPrimes.at(idx);
-}
-std::tuple<long long, long long> LenstraECM::factor(std::vector<long long> &primes) {
-    ppBound(primes);
+std::tuple<long long, long long> LenstraECM::factor() {
     try {
         srand(time(NULL));
         int x = rand();
@@ -68,5 +66,15 @@ std::tuple<long long, long long> LenstraECM::factor(std::vector<long long> &prim
         return std::make_tuple(-1, -1);
     } catch (InverseException e) {
         return std::make_tuple(e.gcd, C.getA() / e.gcd);
+    }
+}
+
+void LenstraECM::multiFactor() {
+    for (int i = 0; i < 8; i++) {
+        pid_t pid = fork();
+        if (pid == 0) {
+            std::cout << std::get<0>(LenstraECM::factor()) << std::endl;
+            return;
+        }
     }
 }

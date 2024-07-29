@@ -12,6 +12,7 @@ int main() {
     primes.push_back(2);
     primes.push_back(3);
     LenstraECM l(curve, 100000, 100000000);
-    std::cout << std::get<0>(l.factor(primes)) << std::endl;
+    l.ppBound(primes);
+    l.multiFactor();
     return 0;
 }
