@@ -62,3 +62,15 @@ ECMPoint ECMCurve::add(ECMPoint P, ECMPoint Q) {
     ECMPoint R(resX, resY, false);
     return R;
 }
+
+ECMPoint ECMCurve::mult(int c, ECMPoint P) {
+    ECMPoint res(0, 0, true);
+    while (c) {
+        if (c & 1) {
+            res = ECMCurve::add(P, res);
+        }
+        P = ECMCurve::add(P, P);
+        c >>= 1;
+    }
+    return res;
+}

@@ -5,9 +5,9 @@
 
 int main() {
     ECMCurve curve(97, 2);
-    ECMPoint P(17, 10, false);
-    ECMPoint Q(95, 31, false);
-    ECMPoint R = curve.add(P, Q);
+    int n = 2;
+    ECMPoint P(3, 6, false);
+    ECMPoint R = curve.mult(2, P);
     std::cout << R.getX() << std::endl;
     std::cout << R.getY();
     return 0;
