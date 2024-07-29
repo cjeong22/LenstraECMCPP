@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS= -g -Wall -std=c++17
-SRC = src/main.cpp src/inverseException.cpp src/ecmPoint.cpp src/ecmCurve.cpp
+SRC = src/main.cpp src/inverseException.cpp src/ecmPoint.cpp src/ecmCurve.cpp src/LenstraECM.cpp
 OBJ = $(SRC:.cpp=.o)
 EXEC = LenstraECM
 all: $(EXEC)

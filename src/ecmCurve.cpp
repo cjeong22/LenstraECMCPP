@@ -1,6 +1,5 @@
 #include "../include/ecmCurve.hpp"
 #include "../include/inverseException.hpp"
-#include <iostream>
 #include <tuple>
 
 ECMCurve::ECMCurve(int p, int A) : p(p), A(A) {}
