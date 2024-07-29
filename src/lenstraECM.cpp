@@ -8,6 +8,11 @@
 
 #define MAXLEN 1UL << 62
 
+struct sharedSpace {
+    int factor;
+    bool foundFactor;
+};
+
 LenstraECM::LenstraECM(ECMCurve C, long long primeCount, long long bound) : C(C), primeCount(primeCount), bound(bound) {}
 
 // primes is guaranteed to have 2, 3 upon passing in
@@ -76,5 +81,8 @@ void LenstraECM::multiFactor() {
             std::cout << std::get<0>(LenstraECM::factor()) << std::endl;
             return;
         }
+    }
+    for (int i = 0; i < 8; i++) {
+        wait(NULL);
     }
 }

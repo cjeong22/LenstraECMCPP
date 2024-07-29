@@ -7,7 +7,7 @@
 #include <random>
 
 int main() {
-    ECMCurve curve(65521LL * 65519LL, rand());
+    ECMCurve curve(7071653725825655243LL, rand());
     std::vector<long long> primes;
     primes.push_back(2);
     primes.push_back(3);
