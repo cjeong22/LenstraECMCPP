@@ -1,3 +1,3 @@
 #include "../include/inverseException.hpp"
 
-InverseException::InverseException(int gcd): gcd(gcd) {}
+InverseException::InverseException(long long gcd): gcd(gcd) {}

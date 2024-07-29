@@ -6,6 +6,6 @@ class InverseException : public std::exception {
     private:
         std::string message;
     public:
-        int gcd;
-        InverseException(int gcd);
+        long long gcd;
+        InverseException(long long gcd);
 };

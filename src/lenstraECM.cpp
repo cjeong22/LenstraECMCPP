@@ -7,14 +7,14 @@
 
 #define MAXLEN 1UL << 62
 
-LenstraECM::LenstraECM(ECMCurve C, unsigned long primeCount, unsigned long bound) : C(C), primeCount(primeCount), bound(bound) {}
+LenstraECM::LenstraECM(ECMCurve C, long long primeCount, long long bound) : C(C), primeCount(primeCount), bound(bound) {}
 
 // primes is guaranteed to have 2, 3 upon passing in
-void LenstraECM::sieve(std::vector<unsigned long> &primes) {
+void LenstraECM::sieve(std::vector<long long> &primes) {
     while (primes.size() <= primeCount) {
-        for (unsigned long i = primes.back() + 2; i < MAXLEN; i += 2) {
+        for (long long i = primes.back() + 2; i < MAXLEN; i += 2) {
             bool isPrime = true;
-            for (int prime : primes) {
+            for (long long prime : primes) {
                 if (prime * prime > i) {
                     break;
                 }
@@ -30,15 +30,15 @@ void LenstraECM::sieve(std::vector<unsigned long> &primes) {
         }
     }
 }
-void LenstraECM::ppBound(std::vector<unsigned long> &primes) {
+void LenstraECM::ppBound(std::vector<long long> &primes) {
     if (boundedPrimes.size() == 0) {
         sieve(primes);
-        for (unsigned long i = 0; i <= primeCount; i++) {
-            int p = primes.at(i);
+        for (long long i = 0; i <= primeCount; i++) {
+            long long p = primes.at(i);
             if (p >= bound) {
                 break;
             }
-            int base = p;
+            long long base = p;
             while (1) {
                 base = base * p;
                 if (base >= bound) {
@@ -54,19 +54,19 @@ void LenstraECM::ppBound(std::vector<unsigned long> &primes) {
 unsigned long LenstraECM::getPP(int idx) {
     return boundedPrimes.at(idx);
 }
-int LenstraECM::factor(int N, std::vector<unsigned long> &primes) {
+std::tuple<long long, long long> LenstraECM::factor(std::vector<long long> &primes) {
     ppBound(primes);
     try {
         srand(time(NULL));
         int x = rand();
         int y = rand();
         ECMPoint P(x, y, false);
-        for (unsigned long i = 0; i <= primeCount; i++) {
+        for (long long i = 0; i <= primeCount; i++) {
             int k = boundedPrimes.at(i);
             P = C.mult(k, P);
         }
-        return -1;
+        return std::make_tuple(-1, -1);
     } catch (InverseException e) {
-        return e.gcd;
+        return std::make_tuple(e.gcd, C.getA() / e.gcd);
     }
 }

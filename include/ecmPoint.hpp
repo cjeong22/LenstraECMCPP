@@ -3,15 +3,15 @@
 
 class ECMPoint {
     private:
-        int x;
-        int y;
+        long long x;
+        long long y;
         bool inf;
     public:
-        ECMPoint(const int x, const int y, const bool inf);
+        ECMPoint(const long long x, const long long y, const bool inf);
         bool isInf() const;
         bool equalTo(ECMPoint Q) const;
-        int getX() const;
-        int getY() const;
+        long long getX() const;
+        long long getY() const;
 };
 
 #endif

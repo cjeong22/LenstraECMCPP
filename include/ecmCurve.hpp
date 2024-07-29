@@ -5,14 +5,16 @@
 #define ECMCURVE_H
 class ECMCurve {
     private:
-        int p;
-        int A;
+        long long p;
+        long long A;
     public:
-        ECMCurve(int p, int A);
-        std::tuple<int, int, int> gcd(int x, int y) const;
-        int inverse(int x);
-        int modpow(int a, int x);
+        ECMCurve(long long p, long long A);
+        std::tuple<long long, long long, long long> gcd(long long x, long long y) const;
+        long long inverse(long long x);
+        long long modpow(long long a, long long x);
+        long long getA();
+        long long getp();
         ECMPoint add(ECMPoint P, ECMPoint Q);
-        ECMPoint mult(int c, ECMPoint P);
+        ECMPoint mult(long long c, ECMPoint P);
 };
 #endif

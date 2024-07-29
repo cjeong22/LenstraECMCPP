@@ -7,12 +7,11 @@
 #include <random>
 
 int main() {
-    ECMCurve curve(323, rand());
-    std::vector<unsigned long> primes;
+    ECMCurve curve(65521LL * 65519LL, rand());
+    std::vector<long long> primes;
     primes.push_back(2);
     primes.push_back(3);
-
-    LenstraECM l(curve, 100, 1000);
-    std::cout << l.factor(323, primes) << std::endl;
+    LenstraECM l(curve, 100000, 100000000);
+    std::cout << std::get<0>(l.factor(primes)) << std::endl;
     return 0;
 }

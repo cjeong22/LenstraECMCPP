@@ -7,16 +7,15 @@
 class LenstraECM {
     private: 
         ECMCurve C;
-        unsigned long primeCount;
-        unsigned long bound;
-
-        std::vector<unsigned long> boundedPrimes;
+        long long primeCount;
+        long long bound;
+        std::vector<long long> boundedPrimes;
         
     public:
-        LenstraECM(ECMCurve C, unsigned long primeCount, unsigned long limit);
-        void sieve(std::vector<unsigned long> &primes);
-        void ppBound(std::vector<unsigned long> &primes);
+        LenstraECM(ECMCurve C, long long primeCount, long long limit);
+        void sieve(std::vector<long long> &primes);
+        void ppBound(std::vector<long long> &primes);
         unsigned long getPP(int idx);
-        int factor(int N, std::vector<unsigned long> &primes);
+        std::tuple<long long, long long> factor(std::vector<long long> &primes);
 };
 #endif
