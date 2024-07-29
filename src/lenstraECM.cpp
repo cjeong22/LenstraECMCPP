@@ -1,6 +1,9 @@
 #include "../include/lenstraECM.hpp"
+#include "../include/inverseException.hpp"
+#include "../include/ecmCurve.hpp"
 #include <vector>
 #include <iostream>
+#include <random>
 
 #define MAXLEN 1UL << 62
 
@@ -28,27 +31,42 @@ void LenstraECM::sieve(std::vector<unsigned long> &primes) {
     }
 }
 void LenstraECM::ppBound(std::vector<unsigned long> &primes) {
-    sieve(primes);
-    for (unsigned long i = 0; i <= primeCount; i++) {
-        int p = primes.at(i);
-        if (p >= bound) {
-            break;
-        }
-        int base = p;
-        while (1) {
-            base = base * p;
-            if (base >= bound) {
-                base /= p;
+    if (boundedPrimes.size() == 0) {
+        sieve(primes);
+        for (unsigned long i = 0; i <= primeCount; i++) {
+            int p = primes.at(i);
+            if (p >= bound) {
                 break;
             }
+            int base = p;
+            while (1) {
+                base = base * p;
+                if (base >= bound) {
+                    base /= p;
+                    break;
+                }
+            }
+            boundedPrimes.push_back(base);
         }
-        boundedPrimes.push_back(base);
     }
 }
 
 unsigned long LenstraECM::getPP(int idx) {
     return boundedPrimes.at(idx);
 }
-int factor(int N) {
-
+int LenstraECM::factor(int N, std::vector<unsigned long> &primes) {
+    ppBound(primes);
+    try {
+        srand(time(NULL));
+        int x = rand();
+        int y = rand();
+        ECMPoint P(x, y, false);
+        for (unsigned long i = 0; i <= primeCount; i++) {
+            int k = boundedPrimes.at(i);
+            P = C.mult(k, P);
+        }
+        return -1;
+    } catch (InverseException e) {
+        return e.gcd;
+    }
 }

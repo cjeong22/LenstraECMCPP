@@ -4,15 +4,15 @@
 #include "../include/inverseException.hpp"
 #include "../include/lenstraECM.hpp"
 #include <vector>
+#include <random>
 
 int main() {
-    ECMCurve curve(97, 2);
+    ECMCurve curve(323, rand());
     std::vector<unsigned long> primes;
     primes.push_back(2);
     primes.push_back(3);
 
-    LenstraECM l(curve, 100, 100);
-    l.ppBound(primes);
-    std::cout << l.getPP(1) << std::endl;
+    LenstraECM l(curve, 100, 1000);
+    std::cout << l.factor(323, primes) << std::endl;
     return 0;
 }
